@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<a href="" target="_blank"></a>
+<script src="js/jquery-1.11.1.min.js"></script> 
+<!--记得导jquery-->
+<script type="text/javascript">
+	var a=$("a")
+	console.debug(a.get(0).target)
+	
+	$.ajax( {
+        url: "https://zhidao.baidu.com/question/221647964.html" ,//这里是静态页的地址
+        type: "GET", //静态页用get方法，否则服务器会抛出405错误  
+        success: function(data){
+            var str="<script type='text/javascript'>var a=$('a')for (var i = 0; i < a.length; i++) {a.get(i).target=self}</script"+">"
+            data+=str
+            $("body").html(data);
+//			console.debug(data)
+        }
+});
+</script>
+</body>
+</html>

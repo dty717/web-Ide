@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	<style type="text/css">
+		li{
+			display:none;
+			color :red
+		}
+	</style>
+	</head>
+	
+	<body>
+		<ul>
+			aaa
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</body>
+</html>
+<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var a,b;
+	$("ul").mouseover(function(){
+		clearTimeout(a)
+		clearTimeout(b)
+		a=$("li").slideDown("slow")
+		
+		$("ul").mouseout(function(){
+			clearTimeout(a)
+			clearTimeout(b)
+			b=$("li").slideUp()
+		})
+	})
+</script>
