@@ -1,6 +1,6 @@
 
 
-var body=document.getElementsByTagName("body")[0]
+        var body=document.getElementsByTagName("body")[0]
 		var j=0;
 		var pa=[];
 		var pb=[];
@@ -24,7 +24,7 @@ var body=document.getElementsByTagName("body")[0]
 		
 		
 		findchildrenid(body);
-var aa=document.getElementsByTagName("head")[0];
+        var aa=document.getElementsByTagName("head")[0];
 		var msty=document.createElement("style");
 		var	nsty=document.createElement("style");
 		var hide=document.createElement("hideid")
@@ -34,7 +34,6 @@ var aa=document.getElementsByTagName("head")[0];
 		aa.appendChild(msty);
 		aa.appendChild(nsty);
 		var body=document.getElementsByTagName("body")[0];
-		//body.appendChild(hide)
 		hide.innerHTML=j+1;
 		body.appendChild(hide)
 		for(var ig=0;ig<e;ig++){

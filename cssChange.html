@@ -221,6 +221,7 @@
 				obj.parentNode.removeChild(obj);
 				corchangeidbydel(iod,icd);
 			}
+
 			function corchangeidbydel(num,y) {
 				var idnum = document.getElementsByClassName("hide")[0];
 				var classnum = document.getElementsByClassName("hide")[1];
@@ -238,7 +239,6 @@
 //			a.parentNode.removeChild(a);
 			
 			
-			 
 			
 			
 			//改变样式的函数
@@ -247,7 +247,6 @@
 				var styl = document.getElementsByTagName("style")[0];
 				var styl1=document.getElementsByTagName("style")[1];
 				styl1.innerHTML="#"+obj.id+"{border:dotted}"
-
 				var changecss = prompt("改变样式~~" + obj.id, "");
 				styl1.innerHTML="";
 				if(changecss=="addtext")
@@ -274,7 +273,6 @@
 				  {changeflag = 0;
 				  addchild(obj);
 				  return;}
-				//console.debug(obj.id)
 				if(changecss == null)
 					return;
 				if(changecss != "")
@@ -282,9 +280,9 @@
 				changeflag = 0;
 			}	
 		
-					var hide=document.getElementsByClassName("hide")[0];
+			var hide=document.getElementsByClassName("hide")[0];
 				
-					var tot=parseInt(hide.innerHTML);
+			var tot=parseInt(hide.innerHTML);
 	
 			var changeflag = 1;
 			var body = document.getElementsByTagName("body")[0]

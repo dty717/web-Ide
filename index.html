@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!--<script src="./js/common/jquery-3.3.1.min.js"></script>-->
+    <style>
+        #workSpace {
+            border: solid;
+            float: left;
+            height: 100%;
+            width: 300px;
+            background: lightseagreen;
+        }
+        
+        #editor {
+            height: calc(100vh - 30px);
+            float: right;
+            width: calc(100% - 320px);
+            margin-right: 10px;
+            margin-top: 0;
+        }
+    </style>
+    <style id="style">
+
+    </style>
+
+    <body>
+        <div>
+            <div id="workSpace">
+                <div>
+                    <button onclick="changeSeletMod(this)">SeletMod</button>
+                </div>
+            </div>
+            <!--
+                作图区间
+            -->
+            <div id="editor">
+                <div>
+                    test
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var body = document.getElementById("editor")
+            var j = 0;
+            var seletMod=true;
+            function changeSeletMod(obj){
+                if(seletMod){
+                    seletMod=false;
+                    obj.innerText="unseletMod";
+                    obj.style.backgroundColor="red"
+                }else{
+                    seletMod=true;
+                    obj.innerText="seletMod";
+                    obj.style.backgroundColor="";
+                }
+            }
+            function on_click(obj){
+                if(!seletMod){
+                    return;
+                }
+                if (changeflag == 1) {
+                    change(obj)
+                }
+            }
+            function findchildrenid(obj) {
+                var children = obj.children;
+                if (children == null)
+                    return;
+
+                for (var i = 0; i < children.length; i++) {
+                    j++;
+                    if (children[i].id != "") {
+                        pa[e] = j;
+                        pb[e] = children[i].id;
+                        e++;
+                    }
+                    children[i].id = "i" + j;
+                    findchildrenid(children[i]);
+                }
+            }
+            findchildrenid(body);
+            //事件触发器
+            var occur = 0;
+            //计算子节点
+            function countchildren(obj) {
+                var count = 0;
+
+                function countchild(obj) {
+                    var children = obj.children;
+                    for (var i = 0; i < children.length; i++) {
+                        count++;
+                        countchild(children[i]);
+                    }
+                }
+                countchild(obj);
+                var a = count;
+                count = 0
+                return a;
+            }
+            //测试项
+            var aa = document.getElementById("i1")
+                //			alert(countchildren(aa));
+
+            //	
+
+            //之后插入 --脚本之家http://www.jb51.net/article/35412.htm|||原生js实现给指定元素的后面追加内容
+            function insertAfter(newElement, targetElement) {
+                var parent = targetElement.parentNode;
+                if (parent.lastChild == targetElement) {
+                    parent.appendChild(newElement, targetElement);
+                } else {
+                    parent.insertBefore(newElement, targetElement.nextSibling);
+                };
+            }
+
+            //增加元素节点
+            //增加子元素：取第一个
+            function addchild(obj) {
+                var get = prompt("输入元素_内容", "div_").split("_")
+                var point = document.createElement(get[0]);
+                point.innerText = get[1];
+                var changeid = parseInt(obj.id.substring(1)) + 1 + countchildren(obj);
+                corchangeid(changeid);
+                point.id = "i" + changeid;
+                obj.appendChild(point);
+                point.onclick = function() {
+                    on_click(this);
+                }
+            }
+
+            function content(obj) {
+                var get = prompt("内容", obj.innerHTML);
+                obj.innerHTML = get;
+            }
+
+            function addcontent(obj) {
+                var get = prompt("内容", "");
+                obj.innerHTML += get;
+            }
+
+            //增加同类节点-或者外层节点
+            //之后加入元素
+            function addouter(obj) {
+                var get = prompt("输入元素_内容", "div_").split("_")
+
+                var point = document.createElement(get[0]);
+                point.innerText = get[1];
+                var changeid = parseInt(obj.id.substring(1)) + 1 + countchildren(obj);
+                corchangeid(changeid);
+                point.id = "i" + changeid;
+                insertAfter(point, obj);
+                point.onclick = function() {
+                    on_click(this);
+                }
+            }
+            //之前加入元素
+            function addouterbefore(obj) {
+                var get = prompt("输入元素_内容", "div_").split("_")
+                var point = document.createElement(get[0]);
+                point.innerText = get[1];
+                var changeid = parseInt(obj.id.substring(1));
+                corchangeid(changeid)
+                point.id = "i" + changeid;
+                obj.parentNode.insertBefore(point, obj);
+                point.onclick = function() {
+                    on_click(this);
+                }
+            }
+            var idnum=0;
+            //所有节点加一 
+            function corchangeid(num) {
+                var inum = idnum;
+                idnum++;
+                for (var i = inum; i >= num; i--) {
+                    var point = document.getElementById("i" + i)
+                    point.id = "i" + (i + 1)
+                }
+            }
+            //所有同类节点改变class值
+
+            //删减节点
+            function deleted(obj) {
+                var iod = parseInt(obj.id.substring(1));
+                var icd = countchildren(obj) + 1;
+                obj.parentNode.removeChild(obj);
+                corchangeidbydel(iod, icd);
+            }
+
+            function corchangeidbydel(num, y) {
+                var inum = idnum;
+                idnum++;
+                for (var i = inum; i >= num + y; i--) {
+                    var point = document.getElementById("i" + i);
+                    point.id = "i" + (i - y);
+                }
+            }
+
+            //改变样式的函数
+
+            function change(obj) {
+                var border_before=obj.style.border;
+                obj.style.border="dotted"
+                
+                var _style = document.getElementById("style");
+                
+                setTimeout(function() {
+                    var changecss = prompt("改变样式~~" + obj.id, "");
+                    if (changecss == "addtext") {
+                        addcontent(obj);
+                    }else if (changecss == "txt") {
+                        content(obj);
+                    }else if (changecss == "add") {
+                        addouter(obj);
+                    }else if (changecss == "addbefore") {
+                        addouterbefore(obj);
+                    }else if (changecss == "del") {
+                        deleted(obj);
+                    }else if (changecss == "addc") {
+                        addchild(obj);
+                    }else if (changecss == null){
+                        obj.style.border=border_before;
+                        return;
+                    }else if (changecss != "")
+                        _style.innerHTML += "#" + obj.id + "{" + changecss + "}";                    
+                    obj.style.border=border_before;
+                    changeflag = 1;
+                }, 20);
+            }
+            var changeflag = 1;
+            body.onclick = function() {
+                if (changeflag == 1) {
+                    //console.log("nothing");
+                } else {
+                    changeflag = 1;
+                }
+            }
+            for (var i = 1; i <= 1000000; i++) {
+                var str = "i" + i;
+                var id = document.getElementById(str);
+                if (id == undefined) {
+                    break;
+                }
+                idnum++;
+                id.onclick = function() {
+                    on_click(this);
+                }
+            }
+            
+        </script>
+    </body>
+
+</html>
